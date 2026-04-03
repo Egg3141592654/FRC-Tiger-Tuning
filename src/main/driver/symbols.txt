@@ -1,0 +1,4 @@
+JNI_OnLoad
+JNI_OnUnload
+Java_com_tigertuning_jni_TigerTuningJNI_initialize
+c_doThing
