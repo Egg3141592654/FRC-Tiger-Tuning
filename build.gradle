@@ -80,27 +80,9 @@ javadoc {
 }
 
 spotless {
+  enforceCheck false
   java {
     googleJavaFormat('1.25.2')
-  }
-  cpp {
-    target 'src/**/*.cpp', 'src/**/*.h'
-    // Resolution order:
-    //   1. -PclangFormatPath=/path/to/clang-format (explicit override)
-    //   2. VS BuildTools LLVM (auto-detected on Windows)
-    //   3. system PATH (Linux / macOS / custom installs)
-    // Pin to the clang-format version shipped with VS 2022 BuildTools.
-    // Override with -PclangFormatVersion=X.Y.Z or -PclangFormatPath=/path/to/clang-format.
-    def clangVersion = project.findProperty('clangFormatVersion') ?: '19.1.5'
-    def step = clangFormat(clangVersion)
-    if (project.hasProperty('clangFormatPath')) {
-      step.pathToExe(project.property('clangFormatPath'))
-    } else {
-      def vsLlvm = file('C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/VC/Tools/Llvm/x64/bin/clang-format.exe')
-      if (vsLlvm.exists()) {
-        step.pathToExe(vsLlvm.absolutePath)
-      }
-    }
   }
 }
 

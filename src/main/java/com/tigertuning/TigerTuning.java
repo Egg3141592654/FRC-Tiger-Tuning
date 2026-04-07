@@ -11,7 +11,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -85,9 +84,7 @@ public class TigerTuning {
   }
 
   private void seedSmartDashboard() {
-    Iterator<Map.Entry<String, JsonNode>> fields = m_cache.fields();
-    while (fields.hasNext()) {
-      Map.Entry<String, JsonNode> entry = fields.next();
+    for (Map.Entry<String, JsonNode> entry : m_cache.properties()) {
       String key = entry.getKey();
       JsonNode value = entry.getValue();
       if (value.isBoolean()) {
@@ -97,9 +94,7 @@ public class TigerTuning {
       } else if (value.isTextual()) {
         SmartDashboard.putString(key, value.asText());
       } else if (value.isObject()) {
-        Iterator<Map.Entry<String, JsonNode>> subFields = value.fields();
-        while (subFields.hasNext()) {
-          Map.Entry<String, JsonNode> sub = subFields.next();
+        for (Map.Entry<String, JsonNode> sub : value.properties()) {
           if (sub.getValue().isNumber()) {
             SmartDashboard.putNumber(key + "/" + sub.getKey(), sub.getValue().asDouble());
           }
