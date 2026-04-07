@@ -135,8 +135,7 @@ class TigerTuningTest {
   void getDoubleArray_nonNumberElementsFiltered() throws IOException {
     TigerTuning.initialize(path("da3.json", "{\"vals\": [1.0, \"skip\", 3.0]}"));
     assertArrayEquals(
-        new double[] {1.0, 3.0},
-        TigerTuning.getInstance().getDoubleArray("vals", new double[0]));
+        new double[] {1.0, 3.0}, TigerTuning.getInstance().getDoubleArray("vals", new double[0]));
   }
 
   @Test
@@ -167,8 +166,7 @@ class TigerTuningTest {
   void getStringArray_nonStringElementsFiltered() throws IOException {
     TigerTuning.initialize(path("sa3.json", "{\"vals\": [\"a\", 99, \"c\"]}"));
     assertArrayEquals(
-        new String[] {"a", "c"},
-        TigerTuning.getInstance().getStringArray("vals", new String[0]));
+        new String[] {"a", "c"}, TigerTuning.getInstance().getStringArray("vals", new String[0]));
   }
 
   // ── getPose2d ────────────────────────────────────────────────────────────
@@ -216,8 +214,7 @@ class TigerTuningTest {
 
   @Test
   void getTranslation3d_keyPresent_returnsJsonValue() throws IOException {
-    TigerTuning.initialize(
-        path("t1.json", "{\"offset\": {\"x\": 1.0, \"y\": 2.0, \"z\": 3.0}}"));
+    TigerTuning.initialize(path("t1.json", "{\"offset\": {\"x\": 1.0, \"y\": 2.0, \"z\": 3.0}}"));
     Translation3d result =
         TigerTuning.getInstance().getTranslation3d("offset", new Translation3d());
     assertEquals(1.0, result.getX(), 1e-9);
@@ -259,8 +256,7 @@ class TigerTuningTest {
   @Test
   void getRotation3d_keyAbsent_returnsDefault() throws IOException {
     TigerTuning.initialize(path("r2.json", "{}"));
-    Rotation3d def =
-        new Rotation3d(Math.toRadians(1.0), Math.toRadians(2.0), Math.toRadians(3.0));
+    Rotation3d def = new Rotation3d(Math.toRadians(1.0), Math.toRadians(2.0), Math.toRadians(3.0));
     Rotation3d result = TigerTuning.getInstance().getRotation3d("missing", def);
     assertEquals(1.0, Math.toDegrees(result.getX()), 1e-9);
     assertEquals(2.0, Math.toDegrees(result.getY()), 1e-9);

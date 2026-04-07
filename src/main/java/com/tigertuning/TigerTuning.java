@@ -53,7 +53,9 @@ public class TigerTuning {
     return s_instance;
   }
 
-  /** Resets the singleton with the given file path. Call before the first {@link #getInstance()}. */
+  /**
+   * Resets the singleton with the given file path. Call before the first {@link #getInstance()}.
+   */
   public static void initialize(String filePath) {
     s_instance = new TigerTuning(filePath);
   }
@@ -118,6 +120,17 @@ public class TigerTuning {
     }
   }
 
+  /**
+   * Returns the value stored under {@code key} as a {@code double}.
+   *
+   * <p>Returns {@code defaultValue} when the key is absent or not a number. When the SmartDashboard
+   * override is active the SmartDashboard entry is returned instead, seeded from the JSON value on
+   * first enable.
+   *
+   * @param key configuration key
+   * @param defaultValue fallback when the key is absent or the wrong type
+   * @return the configured value, or {@code defaultValue}
+   */
   public double getDouble(String key, double defaultValue) {
     JsonNode node = m_cache.get(key);
     double jsonValue = (node != null && node.isNumber()) ? node.asDouble() : defaultValue;
@@ -127,6 +140,17 @@ public class TigerTuning {
     return jsonValue;
   }
 
+  /**
+   * Returns the value stored under {@code key} as an {@code int}.
+   *
+   * <p>Returns {@code defaultValue} when the key is absent or not a number. When the SmartDashboard
+   * override is active the SmartDashboard entry (read as a {@code double} and truncated) is returned
+   * instead.
+   *
+   * @param key configuration key
+   * @param defaultValue fallback when the key is absent or the wrong type
+   * @return the configured value, or {@code defaultValue}
+   */
   public int getInt(String key, int defaultValue) {
     JsonNode node = m_cache.get(key);
     int jsonValue = (node != null && node.isNumber()) ? node.asInt() : defaultValue;
@@ -136,6 +160,16 @@ public class TigerTuning {
     return jsonValue;
   }
 
+  /**
+   * Returns the value stored under {@code key} as a {@code boolean}.
+   *
+   * <p>Returns {@code defaultValue} when the key is absent or not a boolean. When the SmartDashboard
+   * override is active the SmartDashboard entry is returned instead.
+   *
+   * @param key configuration key
+   * @param defaultValue fallback when the key is absent or the wrong type
+   * @return the configured value, or {@code defaultValue}
+   */
   public boolean getBoolean(String key, boolean defaultValue) {
     JsonNode node = m_cache.get(key);
     boolean jsonValue = (node != null && node.isBoolean()) ? node.asBoolean() : defaultValue;
@@ -145,6 +179,16 @@ public class TigerTuning {
     return jsonValue;
   }
 
+  /**
+   * Returns the value stored under {@code key} as a {@code String}.
+   *
+   * <p>Returns {@code defaultValue} when the key is absent or not a string. When the SmartDashboard
+   * override is active the SmartDashboard entry is returned instead.
+   *
+   * @param key configuration key
+   * @param defaultValue fallback when the key is absent or the wrong type
+   * @return the configured value, or {@code defaultValue}
+   */
   public String getString(String key, String defaultValue) {
     JsonNode node = m_cache.get(key);
     String jsonValue = (node != null && node.isTextual()) ? node.asText() : defaultValue;
@@ -154,6 +198,17 @@ public class TigerTuning {
     return jsonValue;
   }
 
+  /**
+   * Returns the value stored under {@code key} as a {@code double[]}.
+   *
+   * <p>Non-numeric elements within the JSON array are silently skipped. Returns {@code
+   * defaultValue} when the key is absent or not an array. When the SmartDashboard override is
+   * active the SmartDashboard entry is returned instead.
+   *
+   * @param key configuration key
+   * @param defaultValue fallback when the key is absent or the wrong type
+   * @return the configured array, or {@code defaultValue}
+   */
   public double[] getDoubleArray(String key, double[] defaultValue) {
     JsonNode node = m_cache.get(key);
     double[] jsonValue = defaultValue;
@@ -172,6 +227,17 @@ public class TigerTuning {
     return jsonValue;
   }
 
+  /**
+   * Returns the value stored under {@code key} as a {@code String[]}.
+   *
+   * <p>Non-string elements within the JSON array are silently skipped. Returns {@code defaultValue}
+   * when the key is absent or not an array. When the SmartDashboard override is active the
+   * SmartDashboard entry is returned instead.
+   *
+   * @param key configuration key
+   * @param defaultValue fallback when the key is absent or the wrong type
+   * @return the configured array, or {@code defaultValue}
+   */
   public String[] getStringArray(String key, String[] defaultValue) {
     JsonNode node = m_cache.get(key);
     String[] jsonValue = defaultValue;
@@ -190,6 +256,18 @@ public class TigerTuning {
     return jsonValue;
   }
 
+  /**
+   * Returns the value stored under {@code key} as a {@link Pose2d}.
+   *
+   * <p>Expects a JSON object with numeric fields {@code x} (metres), {@code y} (metres), and
+   * {@code rotation} (degrees). Any absent field falls back to the corresponding field of {@code
+   * defaultValue}. When the SmartDashboard override is active, sub-keys {@code key/x},
+   * {@code key/y}, and {@code key/rotation} are read instead.
+   *
+   * @param key configuration key
+   * @param defaultValue fallback when the key is absent or the wrong type
+   * @return the configured pose, or {@code defaultValue}
+   */
   public Pose2d getPose2d(String key, Pose2d defaultValue) {
     JsonNode node = m_cache.get(key);
     Pose2d jsonValue = defaultValue;
@@ -209,10 +287,29 @@ public class TigerTuning {
     return jsonValue;
   }
 
+  /**
+   * Returns the value stored under {@code key} as a {@link Pose2d}, defaulting to the origin.
+   *
+   * @param key configuration key
+   * @return the configured pose, or an identity {@link Pose2d} if the key is absent
+   * @see #getPose2d(String, Pose2d)
+   */
   public Pose2d getPose2d(String key) {
     return getPose2d(key, new Pose2d());
   }
 
+  /**
+   * Returns the value stored under {@code key} as a {@link Translation3d}.
+   *
+   * <p>Expects a JSON object with numeric fields {@code x}, {@code y}, and {@code z} (all metres).
+   * Any absent field falls back to the corresponding field of {@code defaultValue}. When the
+   * SmartDashboard override is active, sub-keys {@code key/x}, {@code key/y}, and {@code key/z}
+   * are read instead.
+   *
+   * @param key configuration key
+   * @param defaultValue fallback when the key is absent or the wrong type
+   * @return the configured translation, or {@code defaultValue}
+   */
   public Translation3d getTranslation3d(String key, Translation3d defaultValue) {
     JsonNode node = m_cache.get(key);
     Translation3d jsonValue = defaultValue;
@@ -231,10 +328,30 @@ public class TigerTuning {
     return jsonValue;
   }
 
+  /**
+   * Returns the value stored under {@code key} as a {@link Translation3d}, defaulting to the
+   * origin.
+   *
+   * @param key configuration key
+   * @return the configured translation, or a zero {@link Translation3d} if the key is absent
+   * @see #getTranslation3d(String, Translation3d)
+   */
   public Translation3d getTranslation3d(String key) {
     return getTranslation3d(key, new Translation3d());
   }
 
+  /**
+   * Returns the value stored under {@code key} as a {@link Rotation3d}.
+   *
+   * <p>Expects a JSON object with numeric fields {@code roll}, {@code pitch}, and {@code yaw} (all
+   * degrees). Any absent field falls back to the corresponding field of {@code defaultValue}. When
+   * the SmartDashboard override is active, sub-keys {@code key/roll}, {@code key/pitch}, and
+   * {@code key/yaw} are read instead.
+   *
+   * @param key configuration key
+   * @param defaultValue fallback when the key is absent or the wrong type
+   * @return the configured rotation, or {@code defaultValue}
+   */
   public Rotation3d getRotation3d(String key, Rotation3d defaultValue) {
     JsonNode node = m_cache.get(key);
     Rotation3d jsonValue = defaultValue;
@@ -242,20 +359,24 @@ public class TigerTuning {
       double roll = objectField(node, "roll", Math.toDegrees(defaultValue.getX()));
       double pitch = objectField(node, "pitch", Math.toDegrees(defaultValue.getY()));
       double yaw = objectField(node, "yaw", Math.toDegrees(defaultValue.getZ()));
-      jsonValue =
-          new Rotation3d(Math.toRadians(roll), Math.toRadians(pitch), Math.toRadians(yaw));
+      jsonValue = new Rotation3d(Math.toRadians(roll), Math.toRadians(pitch), Math.toRadians(yaw));
     }
     if (checkOverride()) {
-      double roll =
-          SmartDashboard.getNumber(key + "/roll", Math.toDegrees(jsonValue.getX()));
-      double pitch =
-          SmartDashboard.getNumber(key + "/pitch", Math.toDegrees(jsonValue.getY()));
+      double roll = SmartDashboard.getNumber(key + "/roll", Math.toDegrees(jsonValue.getX()));
+      double pitch = SmartDashboard.getNumber(key + "/pitch", Math.toDegrees(jsonValue.getY()));
       double yaw = SmartDashboard.getNumber(key + "/yaw", Math.toDegrees(jsonValue.getZ()));
       return new Rotation3d(Math.toRadians(roll), Math.toRadians(pitch), Math.toRadians(yaw));
     }
     return jsonValue;
   }
 
+  /**
+   * Returns the value stored under {@code key} as a {@link Rotation3d}, defaulting to no rotation.
+   *
+   * @param key configuration key
+   * @return the configured rotation, or a zero {@link Rotation3d} if the key is absent
+   * @see #getRotation3d(String, Rotation3d)
+   */
   public Rotation3d getRotation3d(String key) {
     return getRotation3d(key, new Rotation3d());
   }
