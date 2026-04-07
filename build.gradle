@@ -110,7 +110,10 @@ def systemArch = getCurrentArch()
 model {
   toolChains {
     visualCpp(VisualCpp) {
-      installDir = "C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools"
+    }
+    gcc(Gcc) {
+    }
+    clang(Clang) {
     }
   }
   components {

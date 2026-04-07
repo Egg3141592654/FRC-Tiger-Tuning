@@ -35,7 +35,10 @@ import java.util.Map;
  * </ul>
  */
 public class TigerTuning {
+  /** SmartDashboard key that enables the tuning override when set to {@code true}. */
   public static final String kOverrideKey = "TigerTuning/OverrideEnabled";
+
+  /** Default path to the JSON configuration file on the roboRIO. */
   public static final String kDefaultFilePath = "/home/lvuser/deploy/tigertuning.json";
 
   private static final ObjectMapper kMapper = new ObjectMapper();
@@ -45,7 +48,11 @@ public class TigerTuning {
   private final JsonNode m_cache;
   private boolean m_prevOverride = false;
 
-  /** Returns the singleton, creating it with the default file path if necessary. */
+  /**
+   * Returns the singleton, creating it with the default file path if necessary.
+   *
+   * @return the singleton {@link TigerTuning} instance
+   */
   public static TigerTuning getInstance() {
     if (s_instance == null) {
       s_instance = new TigerTuning(kDefaultFilePath);
@@ -55,6 +62,8 @@ public class TigerTuning {
 
   /**
    * Resets the singleton with the given file path. Call before the first {@link #getInstance()}.
+   *
+   * @param filePath path to the JSON configuration file
    */
   public static void initialize(String filePath) {
     s_instance = new TigerTuning(filePath);
