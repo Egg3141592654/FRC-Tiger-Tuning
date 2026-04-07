@@ -144,8 +144,8 @@ public class TigerTuning {
    * Returns the value stored under {@code key} as an {@code int}.
    *
    * <p>Returns {@code defaultValue} when the key is absent or not a number. When the SmartDashboard
-   * override is active the SmartDashboard entry (read as a {@code double} and truncated) is returned
-   * instead.
+   * override is active the SmartDashboard entry (read as a {@code double} and truncated) is
+   * returned instead.
    *
    * @param key configuration key
    * @param defaultValue fallback when the key is absent or the wrong type
@@ -163,8 +163,8 @@ public class TigerTuning {
   /**
    * Returns the value stored under {@code key} as a {@code boolean}.
    *
-   * <p>Returns {@code defaultValue} when the key is absent or not a boolean. When the SmartDashboard
-   * override is active the SmartDashboard entry is returned instead.
+   * <p>Returns {@code defaultValue} when the key is absent or not a boolean. When the
+   * SmartDashboard override is active the SmartDashboard entry is returned instead.
    *
    * @param key configuration key
    * @param defaultValue fallback when the key is absent or the wrong type
@@ -259,10 +259,10 @@ public class TigerTuning {
   /**
    * Returns the value stored under {@code key} as a {@link Pose2d}.
    *
-   * <p>Expects a JSON object with numeric fields {@code x} (metres), {@code y} (metres), and
-   * {@code rotation} (degrees). Any absent field falls back to the corresponding field of {@code
-   * defaultValue}. When the SmartDashboard override is active, sub-keys {@code key/x},
-   * {@code key/y}, and {@code key/rotation} are read instead.
+   * <p>Expects a JSON object with numeric fields {@code x} (metres), {@code y} (metres), and {@code
+   * rotation} (degrees). Any absent field falls back to the corresponding field of {@code
+   * defaultValue}. When the SmartDashboard override is active, sub-keys {@code key/x}, {@code
+   * key/y}, and {@code key/rotation} are read instead.
    *
    * @param key configuration key
    * @param defaultValue fallback when the key is absent or the wrong type
@@ -303,8 +303,8 @@ public class TigerTuning {
    *
    * <p>Expects a JSON object with numeric fields {@code x}, {@code y}, and {@code z} (all metres).
    * Any absent field falls back to the corresponding field of {@code defaultValue}. When the
-   * SmartDashboard override is active, sub-keys {@code key/x}, {@code key/y}, and {@code key/z}
-   * are read instead.
+   * SmartDashboard override is active, sub-keys {@code key/x}, {@code key/y}, and {@code key/z} are
+   * read instead.
    *
    * @param key configuration key
    * @param defaultValue fallback when the key is absent or the wrong type
@@ -345,8 +345,8 @@ public class TigerTuning {
    *
    * <p>Expects a JSON object with numeric fields {@code roll}, {@code pitch}, and {@code yaw} (all
    * degrees). Any absent field falls back to the corresponding field of {@code defaultValue}. When
-   * the SmartDashboard override is active, sub-keys {@code key/roll}, {@code key/pitch}, and
-   * {@code key/yaw} are read instead.
+   * the SmartDashboard override is active, sub-keys {@code key/roll}, {@code key/pitch}, and {@code
+   * key/yaw} are read instead.
    *
    * @param key configuration key
    * @param defaultValue fallback when the key is absent or the wrong type
